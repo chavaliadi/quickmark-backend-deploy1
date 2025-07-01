@@ -3,7 +3,8 @@ const {
     loginStudent,
     getMyStudentProfile,
     markAttendanceByLoggedInStudent,
-    getStudentCalendar
+    getStudentCalendar,
+    registerStudent
 } = require('../controllers/studentController');
 const studentAuthMiddleware = require('../middleware/studentAuthMiddleware');
 
@@ -11,6 +12,9 @@ const router = express.Router();
 
 // Student Authentication (Public) - this is the dedicated student login endpoint
 router.post('/auth/login', loginStudent);
+
+// Student Registration (Public)
+router.post('/auth/register', registerStudent);
 
 // Student Protected Routes (require student token)
 router.get('/me', studentAuthMiddleware, getMyStudentProfile);

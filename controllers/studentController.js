@@ -169,9 +169,57 @@ const getStudentCalendar = async (req, res) => {
     }
 };
 
+// Student Registration
+const registerStudent = async (req, res) => {
+    const { roll_number, name, email, password, department_id, current_year, section } = req.body;
+    if (!roll_number || !name || !email || !password || !department_id || !current_year || !section) {
+        return res.status(400).json({ message: 'All fields are required.' });
+    }
+    try {
+        // Check for existing student by roll number or email
+        const existingByRoll = await studentModel.findStudentByRollNumber(roll_number);
+        if (existingByRoll) {
+            return res.status(409).json({ message: 'Roll number already registered.' });
+        }
+        const existingByEmail = await studentModel.findStudentByEmail(email);
+        if (existingByEmail) {
+            return res.status(409).json({ message: 'Email already registered.' });
+        }
+        // Hash password
+        const { hashPassword } = require('../utils/passwordHasher');
+        const passwordHash = await hashPassword(password);
+        // Create student
+        const student = await studentModel.createStudent(
+            roll_number,
+            name,
+            email,
+            passwordHash,
+            department_id,
+            current_year,
+            section
+        );
+        res.status(201).json({
+            message: 'Student registered successfully!',
+            student: {
+                id: student.student_id,
+                roll_number: student.roll_number,
+                name: student.name,
+                email: student.email,
+                department_id: student.department_id,
+                current_year: student.current_year,
+                section: student.section
+            }
+        });
+    } catch (error) {
+        console.error('Student registration error:', error);
+        res.status(500).json({ message: 'Internal server error during registration.' });
+    }
+};
+
 module.exports = {
     loginStudent,
     getMyStudentProfile,
     markAttendanceByLoggedInStudent,
-    getStudentCalendar
+    getStudentCalendar,
+    registerStudent
 };
