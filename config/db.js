@@ -9,6 +9,7 @@ const pool = new Pool({
     password: process.env.PGPASSWORD,
     port: process.env.PGPORT,
     
+    
     // ===== HIGH-CONCURRENCY OPTIMIZATION =====
     max: 50, // Maximum number of clients in the pool (increased for high concurrency)
     min: 10, // Minimum number of clients in the pool
@@ -24,7 +25,7 @@ const pool = new Pool({
     maxUses: 7500, // Maximum number of times a connection can be used before being destroyed
     
     // ===== SSL CONFIGURATION (for production) =====
-    // ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
 // ===== CONNECTION EVENT HANDLERS =====

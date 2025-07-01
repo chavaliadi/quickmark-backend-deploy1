@@ -10,6 +10,7 @@ const pool = new Pool({
     database: process.env.PGDATABASE || 'quickmark_db',
     password: process.env.PGPASSWORD || 'admin',
     port: process.env.PGPORT || 5432,
+    ssl: process.env.PGSSLMODE === 'disable' ? false : { rejectUnauthorized: false }
 });
 
 // Main function to seed the database.
