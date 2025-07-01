@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: backend
+    env: node
+    plan: free
+    buildCommand: 'npm install'
+    startCommand: 'npm start'
+    envVars:
+      - key: PGUSER
+        sync: false
+      - key: PGHOST
+        sync: false
+      - key: PGDATABASE
+        sync: false
+      - key: PGPASSWORD
+        sync: false
+      - key: PGPORT
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: REDIS_HOST
+        sync: false
+      - key: REDIS_PORT
+        sync: false 
