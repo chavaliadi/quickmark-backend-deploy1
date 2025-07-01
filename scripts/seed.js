@@ -53,6 +53,7 @@ async function seedDatabase() {
         const subjects = [
             {
                 name: 'Digital Electronics',
+                code: 'DE101',
                 department_id: departmentIds['ECE'],
                 year: 2,
                 semester: 1,
@@ -60,6 +61,7 @@ async function seedDatabase() {
             },
             {
                 name: 'Database Management',
+                code: 'DBM101',
                 department_id: departmentIds['IT'],
                 year: 2,
                 semester: 1,
@@ -67,6 +69,7 @@ async function seedDatabase() {
             },
             {
                 name: 'Business Analytics',
+                code: 'BA101',
                 department_id: departmentIds['IT-BI'],
                 year: 2,
                 semester: 1,
@@ -76,10 +79,10 @@ async function seedDatabase() {
 
         for (const subject of subjects) {
             await client.query(
-                'INSERT INTO subjects (subject_name, department_id, year, section, semester) VALUES ($1, $2, $3, $4, $5)',
-                [subject.name, subject.department_id, subject.year, subject.section, subject.semester]
+                'INSERT INTO subjects (subject_name, department_id, year, section, semester, subject_code) VALUES ($1, $2, $3, $4, $5, $6)',
+                [subject.name, subject.department_id, subject.year, subject.section, subject.semester, subject.code]
             );
-            console.log(`✅ Created subject: ${subject.name} (${subject.year} Year, Sem ${subject.semester})`);
+            console.log(`✅ Created subject: ${subject.name} (${subject.year} Year, Sem ${subject.semester}, Code: ${subject.code})`);
         }
 
         // Create default admin user
