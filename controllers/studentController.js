@@ -216,10 +216,23 @@ const registerStudent = async (req, res) => {
     }
 };
 
+// Public: Get all departments (for registration, etc.)
+const getAllDepartmentsPublic = async (req, res) => {
+    try {
+        const { pool } = require('../config/db');
+        const result = await pool.query('SELECT department_id, name FROM departments ORDER BY name');
+        res.status(200).json({ departments: result.rows });
+    } catch (error) {
+        console.error('Error fetching departments (public):', error);
+        res.status(500).json({ message: 'Internal server error fetching departments.' });
+    }
+};
+
 module.exports = {
     loginStudent,
     getMyStudentProfile,
     markAttendanceByLoggedInStudent,
     getStudentCalendar,
-    registerStudent
+    registerStudent,
+    getAllDepartmentsPublic
 };

@@ -4,7 +4,8 @@ const {
     getMyStudentProfile,
     markAttendanceByLoggedInStudent,
     getStudentCalendar,
-    registerStudent
+    registerStudent,
+    getAllDepartmentsPublic
 } = require('../controllers/studentController');
 const studentAuthMiddleware = require('../middleware/studentAuthMiddleware');
 
@@ -20,5 +21,8 @@ router.post('/auth/register', registerStudent);
 router.get('/me', studentAuthMiddleware, getMyStudentProfile);
 router.post('/attendance/mark', studentAuthMiddleware, markAttendanceByLoggedInStudent);
 router.get('/attendance/calendar', studentAuthMiddleware, getStudentCalendar); // Route for calendar
+
+// Public: Get all departments (for registration, etc.)
+router.get('/departments', getAllDepartmentsPublic);
 
 module.exports = router;

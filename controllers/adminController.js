@@ -271,12 +271,12 @@ const getSubjects = async (req, res) => {
 };
 
 const createSubject = async (req, res) => {
-    const { subject_name, department_id, year, section, semester } = req.body;
-    if (!subject_name || !department_id || !year || !section || typeof semester === 'undefined') {
-        return res.status(400).json({ message: 'Subject name, department, year, section, and semester are required.' });
+    const { subject_name, subject_code, department_id, year, section, semester } = req.body;
+    if (!subject_name || !subject_code || !department_id || !year || !section || typeof semester === 'undefined') {
+        return res.status(400).json({ message: 'Subject name, subject code, department, year, section, and semester are required.' });
     }
     try {
-        const newSubject = await adminModel.createSubject(subject_name, department_id, year, section, semester);
+        const newSubject = await adminModel.createSubject(subject_name, subject_code, department_id, year, section, semester);
         res.status(201).json({ message: 'Subject created successfully.', subject: newSubject });
     } catch (error) {
         console.error('Error creating subject:', error);

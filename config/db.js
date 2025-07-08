@@ -73,4 +73,7 @@ pool.connect((err, client, done) => {
     client.release();
 });
 
-module.exports = { pool, healthCheck };
+module.exports = {
+    pool,
+    healthCheck
+};
