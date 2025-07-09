@@ -21,7 +21,7 @@ const corsOptions = {
     'http://127.0.0.1:5174',
     'http://127.0.0.1:5175',
     'http://127.0.0.1:4173',
-    // Add production URLs when deployed
+    'https://quickmark-frontend-deploy1-4nlf.vercel.app', // Deployed frontend admin
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
